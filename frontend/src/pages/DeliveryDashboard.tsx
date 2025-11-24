@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Card, CardContent, Button, Chip, Box, CircularProgress } from '@mui/material';
-import axios from 'axios';
+import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -34,7 +34,7 @@ interface Order {
 const DeliveryDashboard: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
-    const { user, token } = useAuth();
+    const { user } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -47,9 +47,7 @@ const DeliveryDashboard: React.FC = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/delivery/orders', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const response = await api.get('/delivery/orders');
             setOrders(response.data);
         } catch (error) {
             console.error('Error fetching orders:', error);
@@ -60,9 +58,8 @@ const DeliveryDashboard: React.FC = () => {
 
     const updateStatus = async (orderId: number, status: string) => {
         try {
-            await axios.put(`http://localhost:8080/api/delivery/orders/${orderId}/status`, null, {
-                params: { status },
-                headers: { Authorization: `Bearer ${token}` }
+            await api.put(`/delivery/orders/${orderId}/status`, null, {
+                params: { status }
             });
             fetchOrders();
         } catch (error) {

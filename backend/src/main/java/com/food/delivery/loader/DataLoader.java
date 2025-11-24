@@ -57,6 +57,14 @@ public class DataLoader implements CommandLineRunner {
                         user.setImageUrl("https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=400");
                         userRepository.save(user);
 
+                        User deliveryBoy = new User();
+                        deliveryBoy.setName("Delivery Partner");
+                        deliveryBoy.setEmail("delivery@zomato.com");
+                        deliveryBoy.setPassword(passwordEncoder.encode("delivery123"));
+                        deliveryBoy.setRole(Role.DELIVERY_BOY);
+                        deliveryBoy.setImageUrl("https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400");
+                        userRepository.save(deliveryBoy);
+
                         // Create Restaurants with diverse cuisines and unique images
                         Restaurant r1 = createRestaurant("Pizza Palace", "Authentic Italian Pizzas",
                                         "123 Main St, New York",
@@ -212,6 +220,20 @@ public class DataLoader implements CommandLineRunner {
                         System.out.println("Data loaded successfully: 10 restaurants with 40 menu items!");
                 } else {
                         updateExistingUsers();
+                        ensureDeliveryBoyExists();
+                }
+        }
+
+        private void ensureDeliveryBoyExists() {
+                if (userRepository.findByEmail("delivery@zomato.com").isEmpty()) {
+                        User deliveryBoy = new User();
+                        deliveryBoy.setName("Delivery Partner");
+                        deliveryBoy.setEmail("delivery@zomato.com");
+                        deliveryBoy.setPassword(passwordEncoder.encode("delivery123"));
+                        deliveryBoy.setRole(Role.DELIVERY_BOY);
+                        deliveryBoy.setImageUrl("https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400");
+                        userRepository.save(deliveryBoy);
+                        System.out.println("Created missing Delivery Boy user.");
                 }
         }
 
