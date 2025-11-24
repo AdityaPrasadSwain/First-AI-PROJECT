@@ -1,8 +1,8 @@
 package com.food.delivery.model;
 
 public enum Role {
-    USER,
+    CUSTOMER,
     RESTAURANT_OWNER,
     ADMIN,
-    DELIVERY_PARTNER
+    DELIVERY_BOY
 }

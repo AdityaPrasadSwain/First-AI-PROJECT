@@ -10,7 +10,7 @@ import com.food.delivery.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+// import org.springframework.stereotype.Component;
 
 // @Component annotation commented out to disable automatic data loading
 // Remove the comment below to re-enable sample data loading on startup
@@ -53,7 +53,7 @@ public class DataLoader implements CommandLineRunner {
                         user.setName("John Doe");
                         user.setEmail("john@gmail.com");
                         user.setPassword(passwordEncoder.encode("user123"));
-                        user.setRole(Role.USER);
+                        user.setRole(Role.CUSTOMER);
                         user.setImageUrl("https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=400");
                         userRepository.save(user);
 

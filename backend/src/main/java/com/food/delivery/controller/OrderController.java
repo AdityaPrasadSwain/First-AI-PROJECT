@@ -1,3 +1,4 @@
+
 package com.food.delivery.controller;
 
 import com.food.delivery.dto.OrderResponse;
@@ -39,13 +40,18 @@ public class OrderController {
     }
 
     @PutMapping("/{id}/status")
-    @PreAuthorize("hasRole('RESTAURANT_OWNER') or hasRole('ADMIN') or hasRole('DELIVERY_PARTNER')")
+    @PreAuthorize("hasRole('RESTAURANT_OWNER') or hasRole('ADMIN') or hasRole('DELIVERY_BOY')")
     public ResponseEntity<Order> updateStatus(@PathVariable Long id, @RequestParam String status) {
         return ResponseEntity.ok(orderService.updateOrderStatus(id, status));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
+        return ResponseEntity.ok(orderService.getOrderById(id));
+    }
+
     @GetMapping("/delivery/available")
-    @PreAuthorize("hasRole('DELIVERY_PARTNER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('DELIVERY_BOY') or hasRole('ADMIN')")
     public ResponseEntity<List<OrderResponse>> getAvailableDeliveries() {
         return ResponseEntity.ok(orderService.getAvailableDeliveries());
     }

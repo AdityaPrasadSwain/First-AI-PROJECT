@@ -28,19 +28,23 @@ public class Order {
     @JoinColumn(name = "address_id")
     private Address address;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "delivery_boy_id")
+    private User deliveryBoy;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderItem> items;
 
     private Double totalAmount;
-    
+
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-    
+
     private String paymentStatus; // PENDING, PAID, FAILED
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
-    
+
     private LocalDateTime estimatedDeliveryTime;
     private LocalDateTime deliveredAt;
 
@@ -78,6 +82,14 @@ public class Order {
         this.address = address;
     }
 
+    public User getDeliveryBoy() {
+        return deliveryBoy;
+    }
+
+    public void setDeliveryBoy(User deliveryBoy) {
+        this.deliveryBoy = deliveryBoy;
+    }
+
     public List<OrderItem> getItems() {
         return items;
     }
@@ -101,7 +113,7 @@ public class Order {
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
-    
+
     public LocalDateTime getEstimatedDeliveryTime() {
         return estimatedDeliveryTime;
     }

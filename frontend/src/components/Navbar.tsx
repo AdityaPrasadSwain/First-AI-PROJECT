@@ -230,7 +230,7 @@ const Navbar = () => {
                                             </Link>
                                         )}
 
-                                        {user?.role === 'DELIVERY_PARTNER' && (
+                                        {user?.role === 'DELIVERY_BOY' && (
                                             <Link to="/delivery/dashboard" style={{
                                                 display: 'flex',
                                                 alignItems: 'center',
