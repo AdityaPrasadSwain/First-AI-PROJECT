@@ -27,6 +27,18 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+        try {
+            AuthResponse response = authService.login(request);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the error for debugging
+            String errorMessage = "Login failed: " + (e.getMessage() != null ? e.getMessage() : "Invalid credentials");
+            return ResponseEntity.badRequest().body(new ErrorResponse(errorMessage));
+        }
+    }
     
     static class ErrorResponse {
         private String message;
@@ -41,16 +53,6 @@ public class AuthController {
         
         public void setMessage(String message) {
             this.message = message;
-        }
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        try {
-            AuthResponse response = authService.login(request);
-            return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
         }
     }
 }

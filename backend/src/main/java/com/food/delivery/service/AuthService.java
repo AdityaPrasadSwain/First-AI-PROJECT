@@ -41,7 +41,12 @@ public class AuthService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setPhone(request.getPhone());
-        user.setRole(request.getRole() != null ? request.getRole() : Role.CUSTOMER);
+        // Ensure role is always set - default to CUSTOMER if not provided
+        Role roleToSet = request.getRole();
+        if (roleToSet == null) {
+            roleToSet = Role.CUSTOMER;
+        }
+        user.setRole(roleToSet);
 
         userRepository.save(user);
 

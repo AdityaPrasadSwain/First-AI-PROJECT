@@ -29,6 +29,7 @@ public class User {
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "VARCHAR(50) DEFAULT 'CUSTOMER'")
     private Role role;
 
     @Column(name = "created_at")
@@ -37,6 +38,9 @@ public class User {
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+        if (this.role == null) {
+            this.role = Role.CUSTOMER;
+        }
     }
 
     public Long getId() {

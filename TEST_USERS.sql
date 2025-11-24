@@ -4,14 +4,14 @@
 -- 1. Regular Customer
 -- Email: customer@test.com
 -- Password: password123
--- Role: USER
+-- Role: CUSTOMER
 INSERT INTO users (name, email, password, phone, role, created_at) 
 VALUES (
     'Test Customer',
     'customer@test.com',
     '$2a$10$xQZ9YxZ9YxZ9YxZ9YxZ9YeK8K8K8K8K8K8K8K8K8K8K8K8K8K8K8K',
     '+1234567890',
-    'USER',
+    'CUSTOMER',
     NOW()
 ) ON CONFLICT (email) DO NOTHING;
 
@@ -32,14 +32,14 @@ VALUES (
 -- 3. Delivery Partner
 -- Email: delivery@test.com
 -- Password: password123
--- Role: DELIVERY_PARTNER
+-- Role: DELIVERY_BOY
 INSERT INTO users (name, email, password, phone, role, created_at) 
 VALUES (
     'Test Delivery Partner',
     'delivery@test.com',
     '$2a$10$xQZ9YxZ9YxZ9YxZ9YxZ9YeK8K8K8K8K8K8K8K8K8K8K8K8K8K8K8K',
     '+1234567892',
-    'DELIVERY_PARTNER',
+    'DELIVERY_BOY',
     NOW()
 ) ON CONFLICT (email) DO NOTHING;
 
